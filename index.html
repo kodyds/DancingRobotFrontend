@@ -1,0 +1,318 @@
+<html>
+
+<head>
+    <link rel="shortcut icon" type="image/ico" href="favicon.ico" />
+</head>
+
+<body>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Bootstrap 4 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.0/gsap.min.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-database.js"></script>
+    <link rel="stylesheet" href="custom.css">
+    <script src="custom.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyCWn2HntZQhTkGv5P_gSgV9KsJPbxD4cKo",
+            authDomain: "showroom-robot.firebaseapp.com",
+            databaseURL: "https://showroom-robot-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "showroom-robot",
+            storageBucket: "showroom-robot.appspot.com",
+            messagingSenderId: "910985053534",
+            appId: "1:910985053534:web:f9086575647a2180107bcf",
+            measurementId: "G-0NCJL355PW"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+        var previousCommand = "none";
+
+        function todo(command) {
+            if (command == previousCommand) {
+                command = command + 'repeat';
+            }
+            previousCommand = command;
+            firebase.database().ref('command').set(command);
+            document.getElementById('Stop').disabled = true;
+            document.getElementById('SF').disabled = true;
+            document.getElementById('SB').disabled = true;
+            document.getElementById('RL').disabled = true;
+            document.getElementById('RR').disabled = true;
+            document.getElementById('TL').disabled = true;
+            document.getElementById('TR').disabled = true;
+            document.getElementById('WF').disabled = true;
+            document.getElementById('WB').disabled = true;
+            setTimeout(function() {
+                document.getElementById('Stop').disabled = false;
+                document.getElementById('SF').disabled = false;
+                document.getElementById('SB').disabled = false;
+                document.getElementById('RL').disabled = false;
+                document.getElementById('RR').disabled = false;
+                document.getElementById('TL').disabled = false;
+                document.getElementById('TR').disabled = false;
+                document.getElementById('WF').disabled = false;
+                document.getElementById('WB').disabled = false;
+            }, 2000);
+        }
+
+        function fadeOut(img) {
+            var owo = new TimelineMax();
+            owo.fromTo('#' + img, 0.2, {
+                autoAlpha: 1
+            }, {
+                autoAlpha: 0
+            })
+        }
+
+        function blankTheImage(imgId) {
+            var Stop1 = true;
+            var SF = true;
+            var SB = true;
+            var RL = true;
+            var RR = true;
+            var TL = true;
+            var TR = true;
+            var WF = true;
+            var WB = true;
+            switch (imgId) {
+                case 'Stop1img':
+                    Stop1 = false;
+                    break;
+                case 'SFimg':
+                    SF = false;
+                    break;
+                case 'SBimg':
+                    SB = false;
+                    break;
+                case 'RLimg':
+                    RL = false;
+                    break;
+                case 'RRimg':
+                    RR = false;
+                    break;
+                case 'TLimg':
+                    TL = false;
+                    break;
+                case 'TRimg':
+                    TR = false;
+                    break;
+                case 'WFimg':
+                    WF = false;
+                    break;
+                case 'WBimg':
+                    WB = false;
+                    break;
+            }
+            if (Stop1) {
+                fadeOut('Stop1img');
+            }
+            if (SF) {
+                fadeOut('SFimg');
+            }
+            if (SB) {
+                fadeOut('SBimg');
+            }
+            if (RL) {
+                fadeOut('RLimg');
+            }
+            if (RR) {
+                fadeOut('RRimg');
+            }
+            if (TL) {
+                fadeOut('TLimg');
+            }
+            if (TR) {
+                fadeOut('TRimg');
+            }
+            if (WF) {
+                fadeOut('WFimg');
+            }
+            if (WB) {
+                fadeOut('WBimg');
+            }
+            setTimeout(function() {
+                var owo = new TimelineMax();
+                if (Stop1) {
+                    owo.fromTo("#Stop1img", 0.1, {
+                        autoAlpha: 0
+                    }, {
+                        autoAlpha: 1
+                    })
+                }
+                if (SF) {
+                    owo.fromTo("#SFimg", 0.1, {
+                        autoAlpha: 0,
+                        y: -20
+                    }, {
+                        autoAlpha: 1,
+                        y: 0
+                    })
+                }
+                if (SB) {
+                    owo.fromTo("#SBimg", 0.1, {
+                        autoAlpha: 0,
+                        y: 20
+                    }, {
+                        autoAlpha: 1,
+                        y: 0
+                    })
+                }
+                if (RL) {
+                    owo.fromTo("#RLimg", 0.1, {
+                        autoAlpha: 0,
+                        x: -20
+                    }, {
+                        autoAlpha: 1,
+                        x: 0
+                    })
+                }
+                if (RR) {
+                    owo.fromTo("#RRimg", 0.1, {
+                        autoAlpha: 0,
+                        x: 20
+                    }, {
+                        autoAlpha: 1,
+                        x: 0
+                    })
+                }
+                if (TL) {
+                    owo.fromTo("#TLimg", 0.1, {
+                        autoAlpha: 0,
+                        x: -20
+                    }, {
+                        autoAlpha: 1,
+                        x: 0
+                    })
+                }
+                if (TR) {
+                    owo.fromTo("#TRimg", 0.1, {
+                        autoAlpha: 0,
+                        x: 20
+                    }, {
+                        autoAlpha: 1,
+                        x: 0
+                    })
+                }
+                if (WF) {
+                    owo.fromTo("#WFimg", 0.1, {
+                        autoAlpha: 0,
+                        y: -20
+                    }, {
+                        autoAlpha: 1,
+                        y: 0
+                    })
+                }
+                if (WB) {
+                    owo.fromTo("#WBimg", 0.1, {
+                        autoAlpha: 0,
+                        y: 20
+                    }, {
+                        autoAlpha: 1,
+                        y: 0
+                    })
+                }
+            }, 1200);
+        }
+        const dbRef = firebase.database().ref();
+    </script>
+
+    <div class="wrapper">
+        <div class="container">
+            <table style="width:40%">
+                <tr>
+                    <td colspan="5"> <img src="robotassets/dept_logo.png" class="EE"></td>
+                </tr>
+                <tr>
+                    <td colspan="5"><iframe id="iframeip" src="noCam.png" style="border:none;margin-left: auto;margin-right: auto; display:block; position: relative; z-index: 100;" scrolling="no" id="iframeip" height="333"></iframe></td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <p id="owo"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><button class="button" id="WF" onclick="blankTheImage('WFimg');todo('WF');"><img src="robotassets/WF.png" id="WFimg" class="buttonimage"></button></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><button class="button" id="SF" onclick="blankTheImage('SFimg');todo('SF');"><img src="robotassets/SF.png" id="SFimg" class="buttonimage"></button></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><button class="button" id="TL" onclick="blankTheImage('TLimg');todo('TL');"><img src="robotassets/TL.png" id="TLimg" class="buttonimage"></button></td>
+                    <td><button class="button" id="RL" onclick="blankTheImage('RLimg');todo('RL');"><img src="robotassets/RL.png" id="RLimg" class="buttonimage"></button></td>
+                    <td><button class="button" id="Stop" onclick="blankTheImage('Stop1img');todo('Stop');"><img src="robotassets/stop.png" id="Stop1img" class="buttonimage"></button></td>
+                    <td><button class="button" id="RR" onclick="blankTheImage('RRimg');todo('RR');"><img src="robotassets/RR.png" id="RRimg" class="buttonimage"></button></td>
+                    <td><button class="button" id="TR" onclick="blankTheImage('TRimg');todo('TR');"><img src="robotassets/TR.png" id="TRimg" class="buttonimage"></button></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><button class="button" id="SB" onclick="blankTheImage('SBimg');todo('SB');"><img src="robotassets/SB.png" id="SBimg" class="buttonimage"></button></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><button class="button" id="WB" onclick="blankTheImage('WBimg');todo('WB');"><img src="robotassets/WB.png" id="WBimg" class="buttonimage"></button></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <ul class="bg-bubbles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <script>
+        //fetch ip
+        dbRef.child("IP").get().then((snapshot) => {
+            if (snapshot.exists()) {
+                console.log(snapshot.val());
+                document.getElementById("iframeip").src = "http://" + snapshot.val() + "/";
+            } else {
+                console.log("No data available");
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
+        //fetch bootuptime
+        dbRef.child("BootUpTime").get().then((snapshot) => {
+            if (snapshot.exists()) {
+                console.log(snapshot.val());
+                document.getElementById('owo').innerHTML = "Last boot up time: " + snapshot.val();
+            } else {
+                console.log("No data available");
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
+    </script>
+</body>
+
+</html>
